@@ -435,7 +435,7 @@ function setup_lvim() {
   create_desktop_file
 
   [ ! -f "$LUNARVIM_CONFIG_DIR/config.lua" ] \
-    && cp "$LUNARVIM_BASE_DIR/utils/installer/config.example.lua" "$LUNARVIM_CONFIG_DIR/config.lua"
+    && cp "$LUNARVIM_BASE_DIR/utils/installer/config.lizhenhu.lua" "$LUNARVIM_CONFIG_DIR/config.lua"
 
   echo "Preparing Lazy setup"
 

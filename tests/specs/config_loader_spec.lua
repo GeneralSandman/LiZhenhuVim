@@ -4,7 +4,7 @@ local fmt = string.format
 
 a.describe("config-loader", function()
   local user_config_path = join_paths(get_config_dir(), "config.lua")
-  local default_config_path = join_paths(get_lvim_base_dir(), "utils", "installer", "config.example.lua")
+  local default_config_path = join_paths(get_lvim_base_dir(), "utils", "installer", "config.lizhenhu.lua")
 
   before_each(function()
     os.execute(fmt("cp -f %s %s", default_config_path, user_config_path))
