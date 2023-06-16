@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
+LiZhenhu_NeoVim_Bin_Path="/Users/bytedance/.local/bin/nvim"
+
 OS="$(uname -s)"
 
 #Set branch to master unless specified by the user
@@ -217,7 +219,7 @@ function check_neovim_min_version() {
   local verify_version_cmd='if !has("nvim-0.9") | cquit | else | quit | endif'
 
   # exit with an error if min_version not found
-  if ! nvim --headless -u NONE -c "$verify_version_cmd"; then
+  if ! "$LiZhenhu_NeoVim_Bin_Path" --headless -u NONE -c "$verify_version_cmd"; then
     echo "[ERROR]: LunarVim requires at least Neovim v0.9 or higher"
     exit 1
   fi
@@ -255,7 +257,7 @@ function check_system_deps() {
     print_missing_dep_msg "git"
     exit 1
   fi
-  if ! command -v nvim &>/dev/null; then
+  if ! command -v "$LiZhenhu_NeoVim_Bin_Path" &>/dev/null; then
     print_missing_dep_msg "neovim"
     exit 1
   fi
