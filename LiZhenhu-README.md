@@ -2,19 +2,23 @@
 
 ## 0. clone
 
+git clone https://github.com/GeneralSandman/LiZhenhuVim
+
+cd LiZhenhuVim
+
 ## 1. install neovim
 
 bash ./utils/installer/install-neovim-from-release
 
-运行完成之后会 获取一个 neovim 的安装目录
+运行完成之后会 获取一个 neovim 的安装目录, 例如：/Users/bytedance/.local/bin/nvim
 
-例如：/Users/bytedance/.local/bin/nvim
+## 2. 更改 ./utils/installer/install.sh 
 
+将 $LiZhenhu_NeoVim_Bin_Path  为 neovim的安装目录
 
-## 2. 更改 ./utils/installer/install.sh 中 $LiZhenhu_NeoVim_Bin_Path  为 neovim的安装目录
+LiZhenhu_NeoVim_Bin_Path="/Users/bytedance/.local/bin/nvim"
 
-
-## 3. install lvim
+## 3. install lvim 配置
 
 bash ./utils/installer/install.sh
 
@@ -41,15 +45,15 @@ alias lvim="/Users/bytedance/.local/bin/lvim"
 
 
 
-## 6. lvim 即可调用
+## 6. 输入 lvim 即可调用
 
 
-## 7. 配置文件的联动
+## 7. 自定义配置文件的联动
 
 本来：install 过程中 把 config.lizhenhu.lua 复制到 ~/.config/lvim/config.lua
 两个配置文件 不联动，更改的时候容易丢失
 
-这里用软连接链接起来
+这里手动用软连接链接起来
 
 rm ~/.config/lvim/config.lua
 
@@ -69,17 +73,6 @@ https://www.lunarvim.org/docs/configuration
 更改完成之后 <leader>Lr 即可重新加载配置
 
 
-在这个文件里边可以放自己的插件
-
-nvim ~/.config/lvim/config.lua  文件内容
-```
-
-
-
-```
-
-
-
 
 ## 1. 删除 lunarvim  配置的快捷键，定义自己熟悉的
 
@@ -89,13 +82,3 @@ nvim ~/.config/lvim/config.lua  文件内容
 ### 调试插件  vimspector
 
 自动保存 断点list
-
-let g:vimspector_variables_display_mode="full"
-
-### 终端弹出插件
-
-
-### 禁用不想用的
-
-
-终端弹出插件   toggleterm.nvim
