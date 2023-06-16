@@ -37,14 +37,45 @@ lvim.plugins = {
             {"<F3>", "<CMD>call vimspector#Restart()<CR>", mode = "n"},
             {"<F4>", "<CMD>call vimspector#Reset()<CR>", mode = "n"},
             {"<F5>", "<CMD>call vimspector#ListBreakpoints()<CR>", mode = "n"},
-            {"<F6>", "<CMD>call vimspector#ClearBreakpoints()<CR>", mode = "n"},
+            {"<F6>", "<CMD>call vimspector#ClearBreakpoints()<CR>", mode = "n"}
             -- {"<F7>", "<Plug>VimspectorBalloonEval", mode = "n"}, -- 在 Variables and scopes 窗口处 可以查看 变量名的类型 
         },
         init = function()
             vim.g.vimspector_variables_display_mode = 'full'
         end
+    }, {
+        -- 弹窗通知
+        -- https://github.com/rcarriga/nvim-notify
+        -- require("notify")("My super important message") 
+        "rcarriga/nvim-notify",
+        init = function() vim.opt.termguicolors = true end
     }
 }
 
+local kepmap_opts = {noremap = true, silent = true}
+-- zhenhuli key mappings
+vim.api.nvim_set_keymap("i", "JJ", "<esc>", kepmap_opts)
+vim.api.nvim_set_keymap("i", ",", ",<Space>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "J", "5j", kepmap_opts)
+vim.api.nvim_set_keymap("n", "K", "5k", kepmap_opts)
 
+-- Plug akinsho/bufferline.nvim
+-- Plug Link https://github.com/akinsho/bufferline.nvim
+vim.api.nvim_set_keymap("n", "R", ":BufferLineCycleNext<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "E", ":BufferLineCyclePrev<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-r>", ":BufferLineCycleNext<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-e>", ":BufferLineCyclePrev<CR>", kepmap_opts)
 
+-- Plug telescope.nvim
+-- Plug Link https://github.com/nvim-telescope/telescope.nvim
+vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>Telescope git_files<cr>", kepmap_opts)
+
+-- Plug vimspector
+vim.api.nvim_create_autocmd({"VimEnter"}, {
+    pattern = {"*.cpp", "*.c", "*.go"},
+
+    command = "<CMD>VimspectorLoadSession"
+})
+vim.api.nvim_create_autocmd({"VimLeave"}, {
+    callback = function(ev) require("notify")("VimSpector Save BreakList") end
+})

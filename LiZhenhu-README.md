@@ -59,6 +59,16 @@ rm ~/.config/lvim/config.lua
 
 ln -s /Users/bytedance/Desktop/LiZhenhuVim/utils/installer/config.lizhenhu.lua ~/.config/lvim/config.lua
 
+
+
+------------------------------------
+
+
+c/cpp 跳转不正确，需要生成 compile_commands.json 文件在根目录
+brew install compiledb
+compiledb -n make
+
+
 ------------------------------------
 
 # 自定义配置
@@ -82,3 +92,21 @@ https://www.lunarvim.org/docs/configuration
 ### 调试插件  vimspector
 
 自动保存 断点list
+
+
+
+clang-format
+
+-- Plug vim-clang-format
+-- Plug Link https://github.com/rhysd/vim-clang-format
+-- 代码自动格式化
+--
+-- TODO: 卡顿
+vim.cmd(
+[[
+  let g:clang_format#detect_style_file = 1
+  let g:clang_format#auto_format = 0
+  let g:clang_format#auto_format_on_insert_leave = 0
+]])
+--
+-- Plug vim-clang-format end
