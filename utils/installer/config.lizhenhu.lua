@@ -74,8 +74,8 @@ vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>Telescope git_files<cr>", kepmap_opt
 vim.api.nvim_create_autocmd({"VimEnter"}, {
     pattern = {"*.cpp", "*.c", "*.go"},
 
-    command = "<CMD>VimspectorLoadSession"
+    callback = function(ev) vim.api.nvim_cmd("<CMD>VimspectorLoadSession", nil) end
 })
 vim.api.nvim_create_autocmd({"VimLeave"}, {
-    callback = function(ev) require("notify")("VimSpector Save BreakList") end
+    callback = function(ev) vim.api.nvim_cmd("<CMD>VimspectorLoadSession", nil) end
 })
