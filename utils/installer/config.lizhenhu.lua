@@ -49,6 +49,11 @@ lvim.plugins = {
         -- require("notify")("My super important message") 
         "rcarriga/nvim-notify",
         init = function() vim.opt.termguicolors = true end
+    }, {
+        -- 快速打开浏览器
+        -- https://github.com/tyru/open-browser.vim
+        "tyru/open-browser.vim",
+        lazy = false
     }
 }
 
@@ -92,3 +97,9 @@ vim.api.nvim_create_autocmd({"VimLeave"}, {
         vim.cmd(":VimspectorMkSession")
     end,
 })
+
+
+-- 快速打开浏览器
+-- https://github.com/tyru/open-browser.vim
+-- ob  快速在浏览器中打开
+vim.api.nvim_set_keymap("n", "ob", "<Plug>(openbrowser-open)", kepmap_opts)

@@ -94,6 +94,9 @@ https://www.lunarvim.org/docs/configuration
 自动保存 断点list
 
 
+自动保存 session 工作区
+
+
 
 clang-format
 
