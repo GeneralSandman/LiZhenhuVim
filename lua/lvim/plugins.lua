@@ -356,26 +356,6 @@ local core_plugins = {
     enabled = lvim.builtin.bigfile.active,
     event = { "FileReadPre", "BufReadPre", "User FileOpened" },
   },
-
-  --------------- lizhenhu 自己的插件
-  {
-    -- 悬浮终端
-    -- https://github.com/voldikss/vim-floaterm
-    "voldikss/vim-floaterm",
-    commit = "bd0aee3c861d613f56b85bd9eaffdcab459071fd",
-    keys = {
-        {"<F9>", "<CMD>FloatermNew<CR>", mode = "n"},
-        {"<F10>", "<CMD>FloatermPrev<CR>", mode = "n"},
-        {"<F11>", "<CMD>FloatermNext<CR>", mode = "n"},
-        {"<F12>", "<CMD>FloatermToggle<CR>", mode = "n"},
-
-        {"<F9>", "<C-\\><C-n>:FloatermNew<CR>", mode = "t"},
-        {"<F10>", "<C-\\><C-n>:FloatermPrev<CR>", mode = "t"},
-        {"<F11>", "<C-\\><C-n>:FloatermNext<CR>", mode = "t"},
-        {"<F12>", "<C-\\><C-n>:FloatermToggle<CR>", mode = "t"}
-    },
-    cmd = "FloatermNew",
-  },
 }
 
 local default_snapshot_path = join_paths(get_lvim_base_dir(), "snapshots", "default.json")
