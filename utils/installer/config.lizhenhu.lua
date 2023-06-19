@@ -32,9 +32,9 @@ lvim.plugins = {
         "puremourning/vimspector",
         version = "5265085743",
         keys = {
-            {"<F1>", "<CMD>call vimspector#Continue()<CR>", mode = "n"},
+            {"<F1>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Continue()<CR>", mode = "n"},
             {"<F2>", "<CMD>call vimspector#ToggleBreakpoint()<CR>", mode = "n"},
-            {"<F3>", "<CMD>call vimspector#Restart()<CR>", mode = "n"},
+            {"<F3>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Restart()<CR>", mode = "n"},
             {"<F4>", "<CMD>call vimspector#Reset()<CR>", mode = "n"},
             {"<F5>", "<CMD>call vimspector#ListBreakpoints()<CR>", mode = "n"},
             {"<F6>", "<CMD>call vimspector#ClearBreakpoints()<CR>", mode = "n"}
@@ -71,11 +71,10 @@ vim.api.nvim_set_keymap("n", "<C-e>", ":BufferLineCyclePrev<CR>", kepmap_opts)
 vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>Telescope git_files<cr>", kepmap_opts)
 
 -- Plug vimspector
-vim.api.nvim_create_autocmd({"VimEnter"}, {
-    pattern = {"*.cpp", "*.c", "*.go"},
-
-    callback = function(ev) vim.api.nvim_cmd("<CMD>VimspectorLoadSession", nil) end
-})
+-- 退出的时候保存断点
 vim.api.nvim_create_autocmd({"VimLeave"}, {
-    callback = function(ev) vim.api.nvim_cmd("<CMD>VimspectorLoadSession", nil) end
+    pattern = "*",
+    callback = function()
+        vim.cmd(":VimspectorMkSession")
+    end,
 })
