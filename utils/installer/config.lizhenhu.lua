@@ -33,11 +33,11 @@ lvim.plugins = {
         version = "5265085743",
         keys = {
             {"<F1>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Continue()<CR>", mode = "n"},
-            {"<F2>", "<CMD>call vimspector#ToggleBreakpoint()<CR>", mode = "n"},
+            {"<F2>", "<CMD>call vimspector#ToggleBreakpoint()<CR> <CMD>VimspectorMkSession<CR>", mode = "n"},
             {"<F3>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Restart()<CR>", mode = "n"},
-            {"<F4>", "<CMD>call vimspector#Reset()<CR>", mode = "n"},
-            {"<F5>", "<CMD>call vimspector#ListBreakpoints()<CR>", mode = "n"},
-            {"<F6>", "<CMD>call vimspector#ClearBreakpoints()<CR>", mode = "n"}
+            {"<F4>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Reset()<CR>", mode = "n"},
+            {"<F5>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#ListBreakpoints()<CR>", mode = "n"},
+            {"<F6>", "<CMD>call vimspector#ClearBreakpoints()<CR> <CMD>VimspectorMkSession<CR>", mode = "n"}
             -- {"<F7>", "<Plug>VimspectorBalloonEval", mode = "n"}, -- 在 Variables and scopes 窗口处 可以查看 变量名的类型 
         },
         init = function()
@@ -51,6 +51,17 @@ lvim.plugins = {
         init = function() vim.opt.termguicolors = true end
     }
 }
+
+-- 更新lunarvim 默认的的快捷键，统一在这个文件里修改
+-- 不去核心配置里修改
+-- 更新 lsp 的K快捷键 为H
+lvim.lsp.buffer_mappings.normal_mode['K'] = nil
+lvim.lsp.buffer_mappings.normal_mode['H'] = { vim.lsp.buf.hover, "Show documentation" }
+
+
+-- Whick Key
+
+
 
 local kepmap_opts = {noremap = true, silent = true}
 -- zhenhuli key mappings
@@ -69,6 +80,9 @@ vim.api.nvim_set_keymap("n", "<C-e>", ":BufferLineCyclePrev<CR>", kepmap_opts)
 -- Plug telescope.nvim
 -- Plug Link https://github.com/nvim-telescope/telescope.nvim
 vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>Telescope git_files<cr>", kepmap_opts)
+
+-- Explorer
+vim.api.nvim_set_keymap("n", ";e", "<cmd>NvimTreeToggle<CR>", kepmap_opts)
 
 -- Plug vimspector
 -- 退出的时候保存断点
