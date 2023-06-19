@@ -9,52 +9,51 @@
 --
 -- 李振虎的config.lua
 lvim.plugins = {
-    {
-        -- 悬浮终端
-        -- https://github.com/voldikss/vim-floaterm
-        "voldikss/vim-floaterm",
-        commit = "bd0aee3c861d613f56b85bd9eaffdcab459071fd",
-        keys = {
-            {"<F9>", "<CMD>FloatermNew<CR>", mode = "n"},
-            {"<F10>", "<CMD>FloatermPrev<CR>", mode = "n"},
-            {"<F11>", "<CMD>FloatermNext<CR>", mode = "n"},
-            {"<F12>", "<CMD>FloatermToggle<CR>", mode = "n"},
-
-            {"<F9>", "<C-\\><C-n>:FloatermNew<CR>", mode = "t"},
-            {"<F10>", "<C-\\><C-n>:FloatermPrev<CR>", mode = "t"},
-            {"<F11>", "<C-\\><C-n>:FloatermNext<CR>", mode = "t"},
-            {"<F12>", "<C-\\><C-n>:FloatermToggle<CR>", mode = "t"}
-        }
-    }, {
-        -- 调试
-        -- https://github.com/puremourning/vimspector
-        -- :VimspectorInstall 安装调试插件
-        "puremourning/vimspector",
-        version = "5265085743",
-        keys = {
-            {"<F1>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Continue()<CR>", mode = "n"},
-            {"<F2>", "<CMD>call vimspector#ToggleBreakpoint()<CR> <CMD>VimspectorMkSession<CR>", mode = "n"},
-            {"<F3>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Restart()<CR>", mode = "n"},
-            {"<F4>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Reset()<CR>", mode = "n"},
-            {"<F5>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#ListBreakpoints()<CR>", mode = "n"},
-            {"<F6>", "<CMD>call vimspector#ClearBreakpoints()<CR> <CMD>VimspectorMkSession<CR>", mode = "n"}
-            -- {"<F7>", "<Plug>VimspectorBalloonEval", mode = "n"}, -- 在 Variables and scopes 窗口处 可以查看 变量名的类型 
-        },
-        init = function()
-            vim.g.vimspector_variables_display_mode = 'full'
-        end
-    }, {
-        -- 弹窗通知
-        -- https://github.com/rcarriga/nvim-notify
-        -- require("notify")("My super important message") 
-        "rcarriga/nvim-notify",
-        init = function() vim.opt.termguicolors = true end
-    }, {
-        -- 快速打开浏览器
-        -- https://github.com/tyru/open-browser.vim
-        "tyru/open-browser.vim",
-        lazy = false
+  {
+    -- 悬浮终端
+    -- https://github.com/voldikss/vim-floaterm
+    "voldikss/vim-floaterm",
+    commit = "bd0aee3c861d613f56b85bd9eaffdcab459071fd",
+    keys = {
+      { "<F9>",  "<CMD>FloatermNew<CR>",           mode = "n" },
+      { "<F10>", "<CMD>FloatermPrev<CR>",          mode = "n" },
+      { "<F11>", "<CMD>FloatermNext<CR>",          mode = "n" },
+      { "<F12>", "<CMD>FloatermToggle<CR>",        mode = "n" },
+      { "<F9>",  "<C-\\><C-n>:FloatermNew<CR>",    mode = "t" },
+      { "<F10>", "<C-\\><C-n>:FloatermPrev<CR>",   mode = "t" },
+      { "<F11>", "<C-\\><C-n>:FloatermNext<CR>",   mode = "t" },
+      { "<F12>", "<C-\\><C-n>:FloatermToggle<CR>", mode = "t" }
     }
+  }, {
+  -- 调试
+  -- https://github.com/puremourning/vimspector
+  -- :VimspectorInstall 安装调试插件
+  "puremourning/vimspector",
+  version = "5265085743",
+  keys = {
+    { "<F1>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Continue()<CR>",        mode = "n" },
+    { "<F2>", "<CMD>call vimspector#ToggleBreakpoint()<CR> <CMD>VimspectorMkSession<CR>",  mode = "n" },
+    { "<F3>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Restart()<CR>",         mode = "n" },
+    { "<F4>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Reset()<CR>",           mode = "n" },
+    { "<F5>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#ListBreakpoints()<CR>", mode = "n" },
+    { "<F6>", "<CMD>call vimspector#ClearBreakpoints()<CR> <CMD>VimspectorMkSession<CR>",  mode = "n" }
+    -- {"<F7>", "<Plug>VimspectorBalloonEval", mode = "n"}, -- 在 Variables and scopes 窗口处 可以查看 变量名的类型
+  },
+  init = function()
+    vim.g.vimspector_variables_display_mode = 'full'
+  end
+}, {
+  -- 弹窗通知
+  -- https://github.com/rcarriga/nvim-notify
+  -- require("notify")("My super important message")
+  "rcarriga/nvim-notify",
+  init = function() vim.opt.termguicolors = true end
+}, {
+  -- 快速打开浏览器
+  -- https://github.com/tyru/open-browser.vim
+  "tyru/open-browser.vim",
+  lazy = false
+}
 }
 
 -- 更新lunarvim 默认的的快捷键，统一在这个文件里修改
@@ -68,7 +67,7 @@ lvim.lsp.buffer_mappings.normal_mode['H'] = { vim.lsp.buf.hover, "Show documenta
 
 
 
-local kepmap_opts = {noremap = true, silent = true}
+local kepmap_opts = { noremap = true, silent = true }
 -- zhenhuli key mappings
 vim.api.nvim_set_keymap("i", "JJ", "<esc>", kepmap_opts)
 vim.api.nvim_set_keymap("i", ",", ",<Space>", kepmap_opts)
@@ -91,15 +90,21 @@ vim.api.nvim_set_keymap("n", ";e", "<cmd>NvimTreeToggle<CR>", kepmap_opts)
 
 -- Plug vimspector
 -- 退出的时候保存断点
-vim.api.nvim_create_autocmd({"VimLeave"}, {
-    pattern = "*",
-    callback = function()
-        vim.cmd(":VimspectorMkSession")
-    end,
+vim.api.nvim_create_autocmd({ "VimLeave" }, {
+  pattern = "*",
+  callback = function()
+    vim.cmd(":VimspectorMkSession")
+  end,
 })
 
 
 -- 快速打开浏览器
 -- https://github.com/tyru/open-browser.vim
 -- ob  快速在浏览器中打开
-vim.api.nvim_set_keymap("n", "ob", "<Plug>(openbrowser-open)", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<leader>ob", "<Plug>(openbrowser-open)", kepmap_opts)
+
+
+-- 代码格式化
+-- 有点慢
+lvim.format_on_save.enabled = true
+lvim.format_on_save.pattern = { "*.lua", "*.py", "*.go", "*.cpp", "*.h" }
