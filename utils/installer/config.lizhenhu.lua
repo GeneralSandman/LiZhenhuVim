@@ -130,16 +130,59 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
   pattern = "*.md",
   callback = function()
     if vim.bo.filetype == "markdown" then
-      vim.cmd(":set wrap")
+      local win = vim.api.nvim_get_current_win()
+      vim.fn.setwinvar(win, "&wrap", 1)
+      -- vim.cmd(":set wrap")
     end
   end,
 })
+-- vim.api.nvim_create_autocmd({ "BufLeave" }, {
+--   pattern = "*.md",
+--   callback = function()
+--     if vim.bo.filetype == "markdown" then
+--       vim.cmd(":set nowrap")
+--     end
+--   end,
+-- })
 
-vim.api.nvim_create_autocmd({ "BufLeave" }, {
-  pattern = "*.md",
-  callback = function()
-    if vim.bo.filetype == "markdown" then
-      vim.cmd(":set nowrap")
-    end
-  end,
-})
+
+
+-- 快速执行终端命令
+-- 只用于curl吧
+--
+function vim.api.lizhenhu_quick_exec()
+  -- 1. exec
+  local command = "!" .. vim.api.nvim_get_current_line()
+  local result = vim.api.nvim_exec2(command, { output = true })
+
+  -- 2. notify
+  require("notify").notify(result.output, "info", {
+    title = "Quick Exec Bash",
+    on_open = function(win)
+      vim.fn.setwinvar(win, "&wrap", 1)
+      local buf = vim.api.nvim_win_get_buf(win)
+      vim.api.nvim_buf_set_option(buf, "filetype", "json")
+    end,
+
+  })
+
+  -- 2.1 notify config
+  -- 让 notify显示的信息 wrap，自动折叠
+  -- local win_index = #vim.api.nvim_list_wins()
+  -- vim.fn.setwinvar(win_index, "&wrap", 1)
+
+  -- 3 save output
+  -- local save_file = "~/.local/share/lvim/exe_bash.history"
+  -- local save_command = "!" .. "echo 'sss' >> " .. save_file
+  -- local result = vim.api.nvim_exec2(save_command, { output = true })
+  -- print(result.output)
+end
+
+vim.api.nvim_set_keymap("n", ";qe", "<CMD>lua vim.api.lizhenhu_quick_exec()<CR>", kepmap_opts)
+
+
+
+-- 如何删除某一行而不剪切到系统粘贴板
+-- 添加前缀 "_
+-- e.g.   "_dd     删除当前行
+-- e.g.   "_di(    删除括号里的内容
