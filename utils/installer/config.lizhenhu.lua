@@ -172,10 +172,9 @@ function vim.api.lizhenhu_quick_exec()
   -- vim.fn.setwinvar(win_index, "&wrap", 1)
 
   -- 3 save output
-  -- local save_file = "~/.local/share/lvim/exe_bash.history"
-  -- local save_command = "!" .. "echo 'sss' >> " .. save_file
-  -- local result = vim.api.nvim_exec2(save_command, { output = true })
-  -- print(result.output)
+  local Log = require "lvim.core.log"
+  Log:add_entry(Log.levels.INFO, result.output)
+  Log:info(result.output)
 end
 
 vim.api.nvim_set_keymap("n", ";qe", "<CMD>lua vim.api.lizhenhu_quick_exec()<CR>", kepmap_opts)
