@@ -74,7 +74,11 @@ vim.api.nvim_set_keymap("i", ",", ",<Space>", kepmap_opts)
 vim.api.nvim_set_keymap("n", "J", "5j", kepmap_opts)
 vim.api.nvim_set_keymap("n", "K", "5k", kepmap_opts)
 
+-- 跳转
+-- gd跳转进函数的定义之后 <C-t> 可跳转回去
+
 -- Plug akinsho/bufferline.nvim
+--
 -- Plug Link https://github.com/akinsho/bufferline.nvim
 vim.api.nvim_set_keymap("n", "R", ":BufferLineCycleNext<CR>", kepmap_opts)
 vim.api.nvim_set_keymap("n", "E", ":BufferLineCyclePrev<CR>", kepmap_opts)
@@ -88,23 +92,54 @@ vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>Telescope git_files<cr>", kepmap_opt
 -- Explorer
 vim.api.nvim_set_keymap("n", ";e", "<cmd>NvimTreeToggle<CR>", kepmap_opts)
 
+
+-- Buffer
+-- Close All Buffers inside current buffer
+vim.api.nvim_set_keymap("n", "<leader>D", "<cmd>%bd|e#<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", ";D", "<cmd>%bd|e#<CR>", kepmap_opts)
+
 -- Plug vimspector
 -- 退出的时候保存断点
-vim.api.nvim_create_autocmd({ "VimLeave" }, {
-  pattern = "*",
-  callback = function()
-    vim.cmd(":VimspectorMkSession")
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "VimLeave" }, {
+--   pattern = "*",
+--   callback = function()
+--     vim.cmd(":VimspectorMkSession")
+--   end,
+-- })
 
 
 -- 快速打开浏览器
 -- https://github.com/tyru/open-browser.vim
 -- ob  快速在浏览器中打开
 vim.api.nvim_set_keymap("n", "<leader>ob", "<Plug>(openbrowser-open)", kepmap_opts)
+vim.api.nvim_set_keymap("n", ";ob", "<Plug>(openbrowser-open)", kepmap_opts)
 
 
 -- 代码格式化
 -- 有点慢
 lvim.format_on_save.enabled = true
 lvim.format_on_save.pattern = { "*.lua", "*.py", "*.go", "*.cpp", "*.h" }
+
+
+-- 自动折行
+-- markdown 文件自动折行 遮掩会比较方便
+-- 其余代码文件在一行显示
+-- 因为 set wrap 是窗口全局
+-- 所以 只有焦点在 markdown buffer 时，才 set wrap
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = "*.md",
+  callback = function()
+    if vim.bo.filetype == "markdown" then
+      vim.cmd(":set wrap")
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "BufLeave" }, {
+  pattern = "*.md",
+  callback = function()
+    if vim.bo.filetype == "markdown" then
+      vim.cmd(":set nowrap")
+    end
+  end,
+})
