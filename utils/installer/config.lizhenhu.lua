@@ -172,16 +172,66 @@ function vim.api.lizhenhu_quick_exec()
   -- vim.fn.setwinvar(win_index, "&wrap", 1)
 
   -- 3 save output
-  local Log = require "lvim.core.log"
-  Log:add_entry(Log.levels.INFO, result.output)
-  Log:info(result.output)
+  -- path ~/.cache/lvim/lvim.log
+  -- local Log = require "lvim.core.log"
+  -- Log:info(result.output)
 end
 
 vim.api.nvim_set_keymap("n", ";qe", "<CMD>lua vim.api.lizhenhu_quick_exec()<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<F8><F8>", "<CMD>lua vim.api.lizhenhu_quick_exec()<CR>", kepmap_opts)
 
 
 
+-- ------------------------------------------
 -- 如何删除某一行而不剪切到系统粘贴板
 -- 添加前缀 "_
 -- e.g.   "_dd     删除当前行
 -- e.g.   "_di(    删除括号里的内容
+--
+--
+--
+-- dt + 字母 # 删除所有的内容，直到遇到字母
+-- di( # 删除()内的内容，不包含()
+-- da( # 删除()内的内容，包含()
+-- di{ # 删除{}内的内容，不包含{}
+-- da{ # 删除{}内的内容，包含{}
+--
+-- ctrl-A  光标置与数字，增加数字
+-- ctrl-X  光标置与数字，减少数字
+--
+--
+-- :vs 横向打开
+-- :sv 纵向打开
+-- :undo
+-- :redo
+-- :only 关闭所有窗口，只保留当前窗口
+--
+-- % 匹配
+--
+--
+-- i 在当前位置生前插入
+-- I 在当前行首插入
+--
+-- a 在当前位置后插入
+-- A 在当前行尾插入
+--
+-- o 在当前行之后插入一行
+-- O 在当前行之前插入一行
+--
+-- p 在光标之后粘贴
+-- P 在光标之前粘贴
+--
+-- w 向前移动一个单词（光标停在单词首部）
+-- e 同w，只不过是光标停在单词尾部
+-- 0（数字0）移动到本行第一个字符上，
+-- $ 移动到行尾
+-- gg 移动到文件头
+-- G 移动到文件尾
+--
+--
+-- x 删除当前字符
+-- D 删除当前字符至行尾
+--
+-- gU 变大写
+-- gu 变小写
+-- ------------------------------------------
