@@ -88,6 +88,9 @@ https://www.lunarvim.org/docs/configuration
 
 ## 2. 自己配置的插件
 
+## 3. 记得经常备份  ~/.config/lvim/lazy-lock.json
+## 3. 记得经常备份  ~/.config/lvim/config.lua 同 config.lizhenhu.lua
+
 
 ### 调试插件  vimspector
 

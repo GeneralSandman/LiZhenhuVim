@@ -53,8 +53,44 @@ lvim.plugins = {
   -- https://github.com/tyru/open-browser.vim
   "tyru/open-browser.vim",
   lazy = false
+}, {
+  -- 中文切换
+  -- https://github.com/ybian/smartim
+  "ybian/smartim",
+}, {
+  -- 书签管理器 bookmarks
+  -- https://github.com/tomasky/bookmarks.nvim
+  "tomasky/bookmarks.nvim",
+  -- after = "telescope.nvim",
+  event = "VimEnter",
+  init = function()
+    require('bookmarks').setup({
+      -- sign_priority = 8,  --set bookmark sign priority to cover other sign
+      save_file = vim.fn.expand "$HOME/.bookmarks", -- bookmarks save file path
+      keywords = {
+        ["@t"] = "☑️ ",                         -- mark annotation startswith @t ,signs this icon as `Todo`
+        ["@w"] = "⚠️ ",                         -- mark annotation startswith @w ,signs this icon as `Warn`
+        ["@f"] = "⛏ ",                            -- mark annotation startswith @f ,signs this icon as `Fix`
+        ["@n"] = " ",                            -- mark annotation startswith @n ,signs this icon as `Note`
+      },
+      on_attach = function(bufnr)
+        local bm = require "bookmarks"
+        local map = vim.keymap.set
+        map("n", "mm", bm.bookmark_toggle) -- add or remove bookmark at current line
+        map("n", "mi", bm.bookmark_ann)    -- add or edit mark annotation at current line
+        map("n", "mc", bm.bookmark_clean)  -- clean all marks in local buffer
+        map("n", "mn", bm.bookmark_next)   -- jump to next mark in local buffer
+        map("n", "mp", bm.bookmark_prev)   -- jump to previous mark in local buffer
+        map("n", "ml", bm.bookmark_list)   -- show marked file list in quickfix window
+      end
+    })
+
+    require('telescope').load_extension('bookmarks')
+  end
+
 }
 }
+
 
 -- 更新lunarvim 默认的的快捷键，统一在这个文件里修改
 -- 不去核心配置里修改
@@ -78,25 +114,58 @@ vim.api.nvim_set_keymap("n", "K", "5k", kepmap_opts)
 -- gd跳转进函数的定义之后 <C-t> 可跳转回去
 
 -- Plug akinsho/bufferline.nvim
---
 -- Plug Link https://github.com/akinsho/bufferline.nvim
 vim.api.nvim_set_keymap("n", "R", ":BufferLineCycleNext<CR>", kepmap_opts)
 vim.api.nvim_set_keymap("n", "E", ":BufferLineCyclePrev<CR>", kepmap_opts)
 vim.api.nvim_set_keymap("n", "<C-r>", ":BufferLineCycleNext<CR>", kepmap_opts)
 vim.api.nvim_set_keymap("n", "<C-e>", ":BufferLineCyclePrev<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "BK", ":BufferKill<CR>", kepmap_opts)
 
 -- Plug telescope.nvim
 -- Plug Link https://github.com/nvim-telescope/telescope.nvim
 vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>Telescope git_files<cr>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-f>", "<cmd>Telescope live_grep<cr>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-g>", "<cmd>Telescope grep_string<cr>", kepmap_opts)
+-- get buffers:  TeleScope buffers
+--
 
+-- Plug gitsigns.nvim
+-- Plug Link https://github.com/lewis6991/gitsigns.nvim
+-- 快速跳转到文件更改处
+vim.api.nvim_set_keymap("n", "[c", "<cmd>Gitsigns prev_hunk<cr>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "]c", "<cmd>Gitsigns next_hunk<cr>", kepmap_opts)
+
+-- Plug Explorer
 -- Explorer
 vim.api.nvim_set_keymap("n", ";e", "<cmd>NvimTreeToggle<CR>", kepmap_opts)
+
+
+-- 书签管理器 bookmarks
+-- https://github.com/tomasky/bookmarks.nvim
+-- Telescope
+-- require('telescope').load_extension('bookmarks')
+-- 调用 :Telescope bookmarks list
+-- 快速查看所有的书签
+vim.api.nvim_set_keymap("n", "<C-m>", ":Telescope bookmarks list", kepmap_opts)
+--   map("n", "mm", bm.bookmark_toggle) -- add or remove bookmark at current line
+--   map("n", "mi", bm.bookmark_ann)    -- add or edit mark annotation at current line
+--   map("n", "mc", bm.bookmark_clean)  -- clean all marks in local buffer
+--   map("n", "mn", bm.bookmark_next)   -- jump to next mark in local buffer
+--   map("n", "mp", bm.bookmark_prev)   -- jump to previous mark in local buffer
+--   map("n", "ml", bm.bookmark_list)   -- show marked file list in quickfix window
+
+
+-- 中文切换
+-- https://github.com/ybian/smartim
+-- http://jackjin-cn.github.io/2019/2019-02-12_18-01_mac-vimzhong-wen-shu-ru-fa-de-qie-huan.html
+vim.g.smartim_default = 'com.apple.keylayout.ABC'
 
 
 -- Buffer
 -- Close All Buffers inside current buffer
 vim.api.nvim_set_keymap("n", "<leader>D", "<cmd>%bd|e#<CR>", kepmap_opts)
 vim.api.nvim_set_keymap("n", ";D", "<cmd>%bd|e#<CR>", kepmap_opts)
+
 
 -- Plug vimspector
 -- 退出的时候保存断点
@@ -118,7 +187,7 @@ vim.api.nvim_set_keymap("n", ";ob", "<Plug>(openbrowser-open)", kepmap_opts)
 -- 代码格式化
 -- 有点慢
 lvim.format_on_save.enabled = true
-lvim.format_on_save.pattern = { "*.lua", "*.py", "*.go", "*.cpp", "*.h" }
+lvim.format_on_save.pattern = { "*.lua", "*.py", "*.go", "*.cpp", "*.h", "*.c" }
 
 
 -- 自动折行
@@ -165,6 +234,31 @@ function vim.api.lizhenhu_quick_exec()
     end,
 
   })
+
+  -- 2.1 notify config
+  -- 让 notify显示的信息 wrap，自动折叠
+  -- local win_index = #vim.api.nvim_list_wins()
+  -- vim.fn.setwinvar(win_index, "&wrap", 1)
+
+  -- 3 save output
+  -- path ~/.cache/lvim/lvim.log
+  -- local Log = require "lvim.core.log"
+  -- Log:info(result.output)
+end
+
+function vim.api.lizhenhu_quick_exec_v2()
+  -- 1. exec
+  local command = ":FloatermNew " .. vim.api.nvim_get_current_line()
+  local result = vim.api.nvim_exec2(command, { output = true })
+
+  -- 2. notify
+  require("notify").notify(result.output, "info", {
+    title = "Quick Exec Bash",
+  })
+
+
+  vim.api.nvim_exec2(":FloatermToggle", { output = true })
+
 
   -- 2.1 notify config
   -- 让 notify显示的信息 wrap，自动折叠
