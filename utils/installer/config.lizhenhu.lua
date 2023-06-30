@@ -122,29 +122,30 @@ vim.api.nvim_set_keymap("n", "K", "5k", kepmap_opts)
 
 -- Plug akinsho/bufferline.nvim
 -- Plug Link https://github.com/akinsho/bufferline.nvim
-vim.api.nvim_set_keymap("n", "R", ":BufferLineCycleNext<CR>", kepmap_opts)
-vim.api.nvim_set_keymap("n", "E", ":BufferLineCyclePrev<CR>", kepmap_opts)
-vim.api.nvim_set_keymap("n", "<C-r>", ":BufferLineCycleNext<CR>", kepmap_opts)
-vim.api.nvim_set_keymap("n", "<C-e>", ":BufferLineCyclePrev<CR>", kepmap_opts)
-vim.api.nvim_set_keymap("n", "BK", ":BufferKill<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "R", "<CMD>BufferLineCycleNext<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "E", "<CMD>BufferLineCyclePrev<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-r>", "<CMD>BufferLineCycleNext<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-e>", "<CMD>BufferLineCyclePrev<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "X", "<CMD>BufferKill<CR>", kepmap_opts)
 
 -- Plug telescope.nvim
 -- Plug Link https://github.com/nvim-telescope/telescope.nvim
-vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>Telescope git_files<cr>", kepmap_opts)
-vim.api.nvim_set_keymap("n", "<C-f>", "<cmd>Telescope live_grep<cr>", kepmap_opts)
-vim.api.nvim_set_keymap("n", "<C-g>", "<cmd>Telescope grep_string<cr>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-p>", "<CMD>Telescope git_files<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-f>", "<CMD>Telescope live_grep<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-g>", "<CMD>Telescope grep_string<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-b>", "<CMD>Telescope buffers<CR>", kepmap_opts)
 -- get buffers:  TeleScope buffers
 --
 
 -- Plug gitsigns.nvim
 -- Plug Link https://github.com/lewis6991/gitsigns.nvim
 -- 快速跳转到文件更改处
-vim.api.nvim_set_keymap("n", "[c", "<cmd>Gitsigns prev_hunk<cr>", kepmap_opts)
-vim.api.nvim_set_keymap("n", "]c", "<cmd>Gitsigns next_hunk<cr>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "[c", "<CMD>Gitsigns prev_hunk<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "]c", "<CMD>Gitsigns next_hunk<CR>", kepmap_opts)
 
 -- Plug Explorer
 -- Explorer
-vim.api.nvim_set_keymap("n", ";e", "<cmd>NvimTreeToggle<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", ";e", "<CMD>NvimTreeToggle<CR>", kepmap_opts)
 
 
 -- 书签管理器 bookmarks
@@ -153,7 +154,7 @@ vim.api.nvim_set_keymap("n", ";e", "<cmd>NvimTreeToggle<CR>", kepmap_opts)
 -- require('telescope').load_extension('bookmarks')
 -- 调用 :Telescope bookmarks list
 -- 快速查看所有的书签
-vim.api.nvim_set_keymap("n", "<C-m>", ":Telescope bookmarks list", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-m>", "<CMD>Telescope bookmarks list<CR>", kepmap_opts)
 --   map("n", "mm", bm.bookmark_toggle) -- add or remove bookmark at current line
 --   map("n", "mi", bm.bookmark_ann)    -- add or edit mark annotation at current line
 --   map("n", "mc", bm.bookmark_clean)  -- clean all marks in local buffer
@@ -170,8 +171,8 @@ vim.g.smartim_default = 'com.apple.keylayout.ABC'
 
 -- Buffer
 -- Close All Buffers inside current buffer
-vim.api.nvim_set_keymap("n", "<leader>D", "<cmd>%bd|e#<CR>", kepmap_opts)
-vim.api.nvim_set_keymap("n", ";D", "<cmd>%bd|e#<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<leader>D", "<CMD>%bd|e#<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", ";D", "<CMD>%bd|e#<CR>", kepmap_opts)
 
 
 -- Plug vimspector
