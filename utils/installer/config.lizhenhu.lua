@@ -60,13 +60,14 @@ lvim.plugins = {
 }, {
   -- 书签管理器 bookmarks
   -- https://github.com/tomasky/bookmarks.nvim
-  "tomasky/bookmarks.nvim",
+  "GeneralSandman/bookmarks.nvim",
   -- after = "telescope.nvim",
   event = "VimEnter",
   init = function()
     require('bookmarks').setup({
       -- sign_priority = 8,  --set bookmark sign priority to cover other sign
       save_file = vim.fn.expand "$HOME/.bookmarks", -- bookmarks save file path
+      -- lizhenhu feature: save_file.<workspace>
       keywords = {
         ["@t"] = "☑️ ",                         -- mark annotation startswith @t ,signs this icon as `Todo`
         ["@w"] = "⚠️ ",                         -- mark annotation startswith @w ,signs this icon as `Warn`
@@ -90,6 +91,12 @@ lvim.plugins = {
 
 }
 }
+
+
+-- Plugin
+-- 功能：
+-- Link：
+--
 
 
 -- 更新lunarvim 默认的的快捷键，统一在这个文件里修改
@@ -205,20 +212,11 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     end
   end,
 })
--- vim.api.nvim_create_autocmd({ "BufLeave" }, {
---   pattern = "*.md",
---   callback = function()
---     if vim.bo.filetype == "markdown" then
---       vim.cmd(":set nowrap")
---     end
---   end,
--- })
 
 
 
 -- 快速执行终端命令
 -- 只用于curl吧
---
 function vim.api.lizhenhu_quick_exec()
   -- 1. exec
   local command = "!" .. vim.api.nvim_get_current_line()
@@ -329,3 +327,9 @@ vim.api.nvim_set_keymap("n", "<F8><F8>", "<CMD>lua vim.api.lizhenhu_quick_exec()
 -- gU 变大写
 -- gu 变小写
 -- ------------------------------------------
+
+
+
+
+-- 运行 GoTest
+-- go test -v -run ^TestGen code.byted.org/storage/byteElevator/pkg/clients/lark
