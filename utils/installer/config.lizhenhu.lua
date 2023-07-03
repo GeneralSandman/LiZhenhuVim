@@ -52,11 +52,12 @@ lvim.plugins = {
   -- 快速打开浏览器
   -- https://github.com/tyru/open-browser.vim
   "tyru/open-browser.vim",
-  lazy = false
+  event = "BufEnter",
 }, {
   -- 中文切换
   -- https://github.com/ybian/smartim
   "ybian/smartim",
+  event = "BufEnter",
 }, {
   -- 书签管理器 bookmarks
   -- https://github.com/tomasky/bookmarks.nvim
@@ -69,10 +70,10 @@ lvim.plugins = {
       save_file = vim.fn.expand "$HOME/.bookmarks", -- bookmarks save file path
       -- lizhenhu feature: save_file.<workspace>
       keywords = {
-        ["@t"] = "☑️ ",                         -- mark annotation startswith @t ,signs this icon as `Todo`
-        ["@w"] = "⚠️ ",                         -- mark annotation startswith @w ,signs this icon as `Warn`
-        ["@f"] = "⛏ ",                            -- mark annotation startswith @f ,signs this icon as `Fix`
-        ["@n"] = " ",                            -- mark annotation startswith @n ,signs this icon as `Note`
+        ["@t"] = "☑️ ", -- mark annotation startswith @t ,signs this icon as `Todo`
+        ["@w"] = "⚠️ ", -- mark annotation startswith @w ,signs this icon as `Warn`
+        ["@f"] = "⛏ ", -- mark annotation startswith @f ,signs this icon as `Fix`
+        ["@n"] = " ", -- mark annotation startswith @n ,signs this icon as `Note`
       },
       on_attach = function(bufnr)
         local bm = require "bookmarks"
