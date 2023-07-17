@@ -60,7 +60,7 @@ lvim.plugins = {
   event = "BufEnter",
 }, {
   -- 书签管理器 bookmarks
-  -- https://github.com/tomasky/bookmarks.nvim
+  -- https://github.com/GeneralSandman/bookmarks.nvim
   "GeneralSandman/bookmarks.nvim",
   -- after = "telescope.nvim",
   event = "VimEnter",
@@ -90,6 +90,14 @@ lvim.plugins = {
     require('telescope').load_extension('bookmarks')
   end
 
+}, {
+  -- https://github.com/folke/flash.nvim
+  -- 快速跳转插件
+  "folke/flash.nvim",
+  event = "BufEnter",
+  init = function()
+    require('flash').setup()
+  end
 }
 }
 
@@ -216,6 +224,13 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 })
 
 
+vim.api.nvim_create_autocmd({ "BufLeave" }, {
+  pattern = "*",
+  callback = function()
+    require("bookmarks").saveBookmarks()
+  end
+})
+
 
 -- 快速执行终端命令
 -- 只用于curl吧
@@ -275,6 +290,9 @@ vim.api.nvim_set_keymap("n", ";qe", "<CMD>lua vim.api.lizhenhu_quick_exec()<CR>"
 vim.api.nvim_set_keymap("n", "<F8><F8>", "<CMD>lua vim.api.lizhenhu_quick_exec()<CR>", kepmap_opts)
 
 
+-- https://github.com/folke/flash.nvim
+-- 快速跳转插件
+vim.api.nvim_set_keymap("n", "<C-j>", "<CMD>lua require('flash').jump()<CR>", kepmap_opts)
 
 -- ------------------------------------------
 -- 如何删除某一行而不剪切到系统粘贴板
