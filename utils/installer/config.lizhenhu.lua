@@ -31,13 +31,13 @@ lvim.plugins = {
   "puremourning/vimspector",
   version = "5265085743",
   keys = {
-    { "<F1>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Continue()<CR>",        mode = "n" },
-    { "<F2>", "<CMD>call vimspector#ToggleBreakpoint()<CR> <CMD>VimspectorMkSession<CR>",  mode = "n" },
-    { "<F3>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Restart()<CR>",         mode = "n" },
-    { "<F4>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#Reset()<CR>",           mode = "n" },
-    { "<F5>", "<CMD>VimspectorLoadSession<CR> <CMD>call vimspector#ListBreakpoints()<CR>", mode = "n" },
-    { "<F6>", "<CMD>call vimspector#ClearBreakpoints()<CR> <CMD>VimspectorMkSession<CR>",  mode = "n" }
-    -- {"<F7>", "<Plug>VimspectorBalloonEval", mode = "n"}, -- 在 Variables and scopes 窗口处 可以查看 变量名的类型
+    { "<F1>", "<CMD>call vimspector#Continue()<CR>",         mode = "n" },
+    { "<F2>", "<CMD>call vimspector#ToggleBreakpoint()<CR>", mode = "n" },
+    { "<F3>", "<CMD>call vimspector#Restart()<CR>",          mode = "n" },
+    { "<F4>", "<CMD>call vimspector#Reset()<CR>",            mode = "n" },
+    { "<F5>", "<CMD>call vimspector#ListBreakpoints()<CR>",  mode = "n" },
+    { "<F6>", "<CMD>call vimspector#ClearBreakpoints()<CR>", mode = "n" },
+    { "<F7>", "<Plug>VimspectorBalloonEval<CR>",             mode = "n" }, -- 在 Variables and scopes 窗口处 可以查看 变量名的类型
   },
   init = function()
     vim.g.vimspector_variables_display_mode = 'full'
@@ -58,38 +58,6 @@ lvim.plugins = {
   -- https://github.com/ybian/smartim
   "ybian/smartim",
   event = "BufEnter",
-}, {
-  -- 书签管理器 bookmarks
-  -- https://github.com/GeneralSandman/bookmarks.nvim
-  "GeneralSandman/bookmarks.nvim",
-  -- after = "telescope.nvim",
-  event = "VimEnter",
-  init = function()
-    require('bookmarks').setup({
-      -- sign_priority = 8,  --set bookmark sign priority to cover other sign
-      save_file = vim.fn.expand "$HOME/.bookmarks", -- bookmarks save file path
-      -- lizhenhu feature: save_file.<workspace>
-      keywords = {
-        ["@t"] = "☑️ ", -- mark annotation startswith @t ,signs this icon as `Todo`
-        ["@w"] = "⚠️ ", -- mark annotation startswith @w ,signs this icon as `Warn`
-        ["@f"] = "⛏ ", -- mark annotation startswith @f ,signs this icon as `Fix`
-        ["@n"] = " ", -- mark annotation startswith @n ,signs this icon as `Note`
-      },
-      on_attach = function(bufnr)
-        local bm = require "bookmarks"
-        local map = vim.keymap.set
-        map("n", "mm", bm.bookmark_toggle) -- add or remove bookmark at current line
-        map("n", "mi", bm.bookmark_ann)    -- add or edit mark annotation at current line
-        map("n", "mc", bm.bookmark_clean)  -- clean all marks in local buffer
-        map("n", "mn", bm.bookmark_next)   -- jump to next mark in local buffer
-        map("n", "mp", bm.bookmark_prev)   -- jump to previous mark in local buffer
-        map("n", "ml", bm.bookmark_list)   -- show marked file list in quickfix window
-      end
-    })
-
-    require('telescope').load_extension('bookmarks')
-  end
-
 }, {
   -- https://github.com/folke/flash.nvim
   -- 快速跳转插件
@@ -163,7 +131,7 @@ vim.api.nvim_set_keymap("n", ";e", "<CMD>NvimTreeToggle<CR>", kepmap_opts)
 -- require('telescope').load_extension('bookmarks')
 -- 调用 :Telescope bookmarks list
 -- 快速查看所有的书签
-vim.api.nvim_set_keymap("n", "<C-m>", "<CMD>Telescope bookmarks list<CR>", kepmap_opts)
+-- vim.api.nvim_set_keymap("n", "<C-m>", "<CMD>Telescope bookmarks list<CR>", kepmap_opts)
 --   map("n", "mm", bm.bookmark_toggle) -- add or remove bookmark at current line
 --   map("n", "mi", bm.bookmark_ann)    -- add or edit mark annotation at current line
 --   map("n", "mc", bm.bookmark_clean)  -- clean all marks in local buffer
@@ -292,7 +260,7 @@ vim.api.nvim_set_keymap("n", "<F8><F8>", "<CMD>lua vim.api.lizhenhu_quick_exec()
 
 -- https://github.com/folke/flash.nvim
 -- 快速跳转插件
-vim.api.nvim_set_keymap("n", "<C-j>", "<CMD>lua require('flash').jump()<CR>", kepmap_opts)
+vim.api.nvim_set_keymap("n", "<C-/>", "<CMD>lua require('flash').jump()<CR>", kepmap_opts)
 
 -- ------------------------------------------
 -- 如何删除某一行而不剪切到系统粘贴板
@@ -353,3 +321,46 @@ vim.api.nvim_set_keymap("n", "<C-j>", "<CMD>lua require('flash').jump()<CR>", ke
 
 -- 运行 GoTest
 -- go test -v -run ^TestGen code.byted.org/storage/byteElevator/pkg/clients/lark
+--
+--
+--
+--
+--
+
+
+-- 废弃的插件配置
+--[[
+{
+  -- 书签管理器 bookmarks
+  -- https://github.com/GeneralSandman/bookmarks.nvim
+  "GeneralSandman/bookmarks.nvim",
+  -- after = "telescope.nvim",
+  event = "VimEnter",
+  init = function()
+    require('bookmarks').setup({
+      -- sign_priority = 8,  --set bookmark sign priority to cover other sign
+      save_file = vim.fn.expand "$HOME/.bookmarks", -- bookmarks save file path
+      -- lizhenhu feature: save_file.<workspace>
+      keywords = {
+        ["@t"] = "☑️ ", -- mark annotation startswith @t ,signs this icon as `Todo`
+        ["@w"] = "⚠️ ", -- mark annotation startswith @w ,signs this icon as `Warn`
+        ["@f"] = "⛏ ", -- mark annotation startswith @f ,signs this icon as `Fix`
+        ["@n"] = " ", -- mark annotation startswith @n ,signs this icon as `Note`
+      },
+      on_attach = function(bufnr)
+        local bm = require "bookmarks"
+        local map = vim.keymap.set
+        map("n", "mm", bm.bookmark_toggle) -- add or remove bookmark at current line
+        map("n", "mi", bm.bookmark_ann)    -- add or edit mark annotation at current line
+        map("n", "mc", bm.bookmark_clean)  -- clean all marks in local buffer
+        map("n", "mn", bm.bookmark_next)   -- jump to next mark in local buffer
+        map("n", "mp", bm.bookmark_prev)   -- jump to previous mark in local buffer
+        map("n", "ml", bm.bookmark_list)   -- show marked file list in quickfix window
+      end
+    })
+
+    require('telescope').load_extension('bookmarks')
+  end
+
+},
+--]]
