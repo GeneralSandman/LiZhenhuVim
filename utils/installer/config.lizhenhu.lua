@@ -192,12 +192,7 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
 })
 
 
-vim.api.nvim_create_autocmd({ "BufLeave" }, {
-  pattern = "*",
-  callback = function()
-    require("bookmarks").saveBookmarks()
-  end
-})
+
 
 
 -- 快速执行终端命令
